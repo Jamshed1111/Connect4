@@ -1,0 +1,728 @@
+.Play{
+
+  margin-top: 2%;
+}
+
+@media only screen and (max-width: 900px) {
+
+  .Play{
+    width: 50%;
+  }
+  
+  .play_comp{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: white;
+  }
+  .play_fri{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+  }
+  .play_on{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
+  .game_button_1{
+
+    margin-left: 15%;
+    margin-top: 2%;
+  }
+
+  .game_button_2{
+
+    margin-left: 20%;
+    margin-top: 2%;
+  }
+
+  /* square grid */
+
+  
+  .item {
+    background-color: whitesmoke;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 50vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 3;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc(var(--content-width) / var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+
+
+  /* play square grid */
+
+
+  .play_item-0 {
+    background-color: whitesmoke;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-1 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-2 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2020/02/08/00/32/icon-4828765_960_720.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .play_grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .play_SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 60vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 7;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+}
+
+
+
+
+@media only screen and (max-width: 700px) {
+  
+  .play_comp{
+
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: white;
+  }
+  .play_fri{
+
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+  }
+  .play_on{
+
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
+  .game_button_1{
+
+    margin-left: 15%;
+    margin-top: 2%;
+  }
+
+  .game_button_2{
+
+    margin-left: 20%;
+    margin-top: 2%;
+  }
+
+  /* square grid */
+
+  
+  .item {
+    background-color: whitesmoke;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 80vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 3;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc(var(--content-width) / var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+
+
+  /* play square grid */
+
+  .play_item-0 {
+    background-color: whitesmoke;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-1 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-2 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2020/02/08/00/32/icon-4828765_960_720.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .play_grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    /* margin-left: 2%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .play_SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 80vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 7;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+}
+
+
+
+
+@media only screen and (max-width: 400px) {
+
+  .Play{
+    width: 80%;
+  }
+  
+  .play_comp{
+
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: white;
+  }
+  .play_fri{
+
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+  }
+  .play_on{
+
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
+  .game_button_1{
+
+    margin-left: 7%;
+    margin-top: 2%;
+  }
+
+  .game_button_2{
+
+    margin-left: 1%;
+    margin-top: 2%;
+  }
+
+  /* square grid */
+
+  
+  .item {
+    background-color: whitesmoke;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 90vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 3;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc(var(--content-width) / var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+
+  /* play square grid */
+
+  .play_item-0 {
+    background-color: whitesmoke;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-1 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-2 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2020/02/08/00/32/icon-4828765_960_720.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .play_grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .play_SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 90vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 7;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+}
+
+
+
+
+@media only screen and (min-width: 901px) {
+
+  .Play{
+    float: right;
+  }
+  
+  .play_comp{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: white;
+  }
+  .play_fri{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+  }
+  .play_on{
+
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
+  .game_button_1{
+
+    margin-left: 15%;
+    margin-top: 2%;
+  }
+
+  .game_button_2{
+
+    margin-left: 20%;
+    margin-top: 2%;
+  }
+
+
+  /* square grid */
+
+
+  .item {
+    background-color: whitesmoke;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 40vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 3;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc(var(--content-width) / var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+
+  /* square grid for game play */
+
+  .play_item-0 {
+    background-color: whitesmoke;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-1 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .play_item-2 {
+    background-color: whitesmoke;
+    background-image: url("https://cdn.pixabay.com/photo/2020/02/08/00/32/icon-4828765_960_720.jpg");
+    border-radius: 50%;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .play_grid {
+    font-family: Noto Sans, Arial, sans-serif;
+    padding: 2% 0;
+    /* margin-left: 2%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* // This is the  code that comes with 3 variables for modification */
+  
+  .play_SquareGrid {
+    /* // The content width you use on your website */
+    --content-width: 42vw;
+  
+    /* // The size of the gutter   */
+    --gutter: 10px;
+  
+    /* // The amount of columns */
+    --columns: 7;
+    
+    /* // This is the calculation for the row height.    */
+    --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns));
+  
+    display: grid;
+  
+    width: 100%;
+    max-width: var(--content-width);
+  
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-auto-rows: var(--row-size);
+  
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+  
+  }
+}
+
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+
+.login{
+
+  margin-right: 1%;
+}
+
+
+.time_button{
+
+  margin-top: 2%;
+  display: flex;
+}
+
+.drop_down{
+  width: 50%;
+}
+
+.custom_button{
+  padding: 0%;
+}
+
+.rated_button{
+
+  margin-top: 2%;
+  margin-left: 33%;
+  margin-right: 2%;
+}
+
+.casual_button{
+
+  margin-top: 2%;
+}
+
+.drop_down_computer{
+  width: 100%;
+}
+
+.time_button_computer{
+  margin-top: 2%;
+  display: flex;
+  margin-bottom: 2%;
+}
+
+.Level{
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-around;
+}
