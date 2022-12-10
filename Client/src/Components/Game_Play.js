@@ -15,7 +15,6 @@ export default function Game_Play(props) {
     const room = props.getRoom();
     const socket = props.socket;
 
-    const pNo = props.getPlayer1or2();
     const p1Coin = props.getPlayer1Coin();
     const p2Coin = props.getPlayer2Coin();
 
@@ -72,6 +71,7 @@ export default function Game_Play(props) {
 
         if(cellNum > 0){
             newCellCheck = [...cellCheck];
+            let pNo = props.getPlayer1or2();
             newCellCheck[cellNum] = pNo;
             setCellCheck(newCellCheck);
             console.log(newCellCheck);

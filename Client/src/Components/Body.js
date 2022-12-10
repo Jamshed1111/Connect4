@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import{
     Link
   } from "react-router-dom";
+import { useEffect} from 'react';
 
 // import io from 'socket.io-client';
 // const socket = io.connect("http://localhost:5000")
@@ -13,6 +14,36 @@ export default function Body(props) {
     let createRoomId;
     let joinRoomId;
 
+    useEffect(() => {
+        socket.on("joiner-data", (data) => {
+            props.setOpponentUserName(data.userName);
+            let room = data.room;
+            let userName = props.getMyUserName();
+            let creatorPlayerNumber = props.getPlayer1or2();
+            socket.emit("creator-data", {room, userName, creatorPlayerNumber}, (acknowledgement) => {
+                
+            });
+            
+            //Here redirect to game screen
+        })
+
+        socket.on("creator-data", (data) => {
+            props.setOpponentUserName(data.userName);
+            let creatorPlayerNumber = data.creatorPlayerNumber;
+
+            if(creatorPlayerNumber === 1){
+                props.setPlayer1or2(2);
+                props.setMyTurn(false);
+            }
+            else{
+                props.setPlayer1or2(1);
+                props.setMyTurn(true);
+            }
+
+            //Here redirect to game screen
+        })
+    }, [socket])
+
     const createRoom = () => {
         let room = createRoomId;
         
@@ -21,26 +52,38 @@ export default function Body(props) {
             amPlayer1or2 = Math.floor(Math.random() * 2) + 1;
         }
         props.setPlayer1or2(amPlayer1or2);
-        console.log(amPlayer1or2);
+        if(amPlayer1or2 === 1){
+            props.setMyTurn(true);
+        }
+        else{
+            props.setMyTurn(false);
+        }
 
-        socket.emit("join-room", {room}, (acknowledgement) => {
-            alert(acknowledgement.status);
+        socket.emit("create-room", {room}, (acknowledgement) => {
+            let ack = acknowledgement.status;
+            if(ack === "Room already created"){
+                alert(ack);
+            }
         });
     }
 
     const joinRoom = () => {
         let room = joinRoomId;
-        if(room !== ""){
-            socket.emit("join-room", {room}, (acknowledgement) => {
-                alert(acknowledgement.status);
-            });
-        }
+        let userName = props.getMyUserName();
+        socket.emit("join-room", {room, userName}, (acknowledgement) => {
+            let ack = acknowledgement.status;
+            if(ack === "Room not created"){
+                alert(ack);
+            }
+            else if(ack === "Room is full"){
+                alert(ack);
+            }
+        });
         props.setRoom(room);
-        props.setPlayer1or2(2);
     }
     
     const leaveRoom = () => {
-        const room = props.room;
+        const room = props.room;//room not in props needs to be changed
         if(props.room !== ""){
             socket.emit("leave-room", {room}, (acknowledgement) => {
                 alert(acknowledgement.status);

@@ -1,147 +1,109 @@
-import React, { Component } from 'react'
+import logo from './logo.svg';
+import './App.css';
+import Navbar from './Components/Navbar';
+import Name_color from './Components/Name_color';
+import AboutUs from './Components/AboutUs';
+import Body from './Components/Body';
+import Easy from './Components/Easy';
+import Moderate from './Components/Moderate';
+import Hard from './Components/Hard';
+import Rules_Regulations from './Components/Rules_Regulations';
+import Game_Play from './Components/Game_Play';
+
 import{
-    Link
-  } from "react-router-dom";
-import { useState, useEffect} from 'react';
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import { useState } from 'react';
 
-// import io from 'socket.io-client';
-// const socket = io.connect("http://localhost:5000")
+import io from 'socket.io-client';
+const socket = io.connect("http://localhost:5000")
 
-//const golbalCellCheck = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var myTurn;
+var room;
+var player1Coin = 1;//initialize from database
+var player2Coin = 2;//initialize from database
+var player1or2;
+var myUserName;//initialize from database
+var opponentUserName;
 
+function App() {
 
-export default function Game_Play(props) {
-    
-    const room = props.getRoom();
-    const socket = props.socket;
+  //const [room, setRoom] = useState("");
+  //const [myTurn, setMyTurn] = useState(true);
+  //const [myCoin, setMyCoin] = useState(1);
+  //const [opponentCoin, setOpponentCoin] = useState(2);
+  //const [player1or2, setPlayer1or2] = useState(1);
 
-    const p1Coin = props.getPlayer1Coin();
-    const p2Coin = props.getPlayer2Coin();
+  const setRoom = (data) => {
+    room = data;
+  }
 
-    const [cellCheck, setCellCheck] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
-    let newCellCheck = [...cellCheck];
-    const cellCheckSkin = [...cellCheck];
+  const getRoom = () => {
+    return room;
+  }
 
-    cellCheckSkin.forEach((value, index, arr) => {
-        if(value === 1){
-            cellCheckSkin[index] = p1Coin;
-        }
-        else if(value === 2){
-            cellCheckSkin[index] = p2Coin;    
-        }
-    })
+  const setMyTurn = (data) => {
+    myTurn = data;
+  }
 
+  const getMyTurn = () => {
+    return myTurn;
+  }
 
-    useEffect(() => {
-        socket.on("receive-move", (data) => {
-            let move = data.move;//Latest move to store on database or to go to previous moves.
-            newCellCheck = [...data.newCellCheck];
-            setCellCheck(newCellCheck);
+  const setPlayer1or2 = (data) => {
+    player1or2 = data;
+  }
 
-            props.setMyTurn(true);
-        })
-    }, [socket])
-    
-    const sendMove = (move) => {
-        socket.emit("send-move", {move, newCellCheck, room}, (acknowledgement) => {
-            props.setMyTurn(false);
-            //alert(acknowledgement.status);
-        });
-    };
+  const getPlayer1or2 = () => {
+    return player1or2;
+  }
 
-    const handleClick = (move) => {
+  const getPlayer1Coin = () => {
+    return player1Coin;
+  }
 
-        if(props.getMyTurn() === false){
-            alert("Opponents turn");
-            return;
-        }
+  const getPlayer2Coin = () => {
+    return player2Coin;
+  }
 
-        move %= 7;
-        if(move == 0){
-            move = 7;
-        }
-        
-        let cellNum = move - 7;
+  const getMyUserName = () => {
+    return myUserName;
+  }
 
-        for(; cellNum + 7 <= 42; cellNum += 7){
-            if(cellCheck[cellNum + 7] != 0){
-                break;
-            }
-        }
+  const setOpponentUserName = (data) => {
+    opponentUserName = data;
+  }
 
-        if(cellNum > 0){
-            newCellCheck = [...cellCheck];
-            let pNo = props.getPlayer1or2();
-            newCellCheck[cellNum] = pNo;
-            setCellCheck(newCellCheck);
-            console.log(newCellCheck);
-            sendMove(move);
-        }
-        else{
-            alert("Can't play there\nColumn is full");
-        }
-    }
+  const getOpponentUserName = () => {
+    return opponentUserName;
+  }
 
-    // console.log(cellCheck);    
+  // const [cellCheck, setCellCheck] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1]);
 
-
+  // const setCellCheckArray = (data) => {
+  //   setCellCheck(data);
+  // }
 
   return (
+    <div>
+      <Router>
 
-    <>
-
-        <div className="play_grid">
-            <div className="play_SquareGrid">
-                <div className={`play_item-${cellCheckSkin[1]}`} onClick={() => {handleClick(1)}}>1</div>
-                <div className={`play_item-${cellCheckSkin[2]}`} onClick={() => {handleClick(2)}}>2</div>
-                <div className={`play_item-${cellCheckSkin[3]}`} onClick={() => {handleClick(3)}}>3</div>
-                <div className={`play_item-${cellCheckSkin[4]}`} onClick={() => {handleClick(4)}}>4</div>
-                <div className={`play_item-${cellCheckSkin[5]}`} onClick={() => {handleClick(5)}}>5</div>
-                <div className={`play_item-${cellCheckSkin[6]}`} onClick={() => {handleClick(6)}}>6</div>
-                <div className={`play_item-${cellCheckSkin[7]}`} onClick={() => {handleClick(7)}}>7</div>
-
-                <div className={`play_item-${cellCheckSkin[8]}`} onClick={() => {handleClick(8)}}>8</div>
-                <div className={`play_item-${cellCheckSkin[9]}`} onClick={() => {handleClick(9)}}>9</div>
-                <div className={`play_item-${cellCheckSkin[10]}`} onClick={() => {handleClick(10)}}>10</div>
-                <div className={`play_item-${cellCheckSkin[11]}`} onClick={() => {handleClick(11)}}>11</div>
-                <div className={`play_item-${cellCheckSkin[12]}`} onClick={() => {handleClick(12)}}>12</div>
-                <div className={`play_item-${cellCheckSkin[13]}`} onClick={() => {handleClick(13)}}>13</div>
-                <div className={`play_item-${cellCheckSkin[14]}`} onClick={() => {handleClick(14)}}>14</div>
-           
-                <div className={`play_item-${cellCheckSkin[15]}`} onClick={() => {handleClick(15)}}>15</div>
-                <div className={`play_item-${cellCheckSkin[16]}`} onClick={() => {handleClick(16)}}>16</div>
-                <div className={`play_item-${cellCheckSkin[17]}`} onClick={() => {handleClick(17)}}>17</div>
-                <div className={`play_item-${cellCheckSkin[18]}`} onClick={() => {handleClick(18)}}>18</div>
-                <div className={`play_item-${cellCheckSkin[19]}`} onClick={() => {handleClick(19)}}>19</div>
-                <div className={`play_item-${cellCheckSkin[20]}`} onClick={() => {handleClick(20)}}>20</div>
-                <div className={`play_item-${cellCheckSkin[21]}`} onClick={() => {handleClick(21)}}>21</div>
-           
-                <div className={`play_item-${cellCheckSkin[22]}`} onClick={() => {handleClick(22)}}>22</div>
-                <div className={`play_item-${cellCheckSkin[23]}`} onClick={() => {handleClick(23)}}>23</div>
-                <div className={`play_item-${cellCheckSkin[24]}`} onClick={() => {handleClick(24)}}>24</div>
-                <div className={`play_item-${cellCheckSkin[25]}`} onClick={() => {handleClick(25)}}>25</div>
-                <div className={`play_item-${cellCheckSkin[26]}`} onClick={() => {handleClick(26)}}>26</div>
-                <div className={`play_item-${cellCheckSkin[27]}`} onClick={() => {handleClick(27)}}>27</div>
-                <div className={`play_item-${cellCheckSkin[28]}`} onClick={() => {handleClick(28)}}>28</div>
-           
-                <div className={`play_item-${cellCheckSkin[29]}`} onClick={() => {handleClick(29)}}>29</div>
-                <div className={`play_item-${cellCheckSkin[30]}`} onClick={() => {handleClick(30)}}>30</div>
-                <div className={`play_item-${cellCheckSkin[31]}`} onClick={() => {handleClick(31)}}>31</div>
-                <div className={`play_item-${cellCheckSkin[32]}`} onClick={() => {handleClick(32)}}>32</div>
-                <div className={`play_item-${cellCheckSkin[33]}`} onClick={() => {handleClick(33)}}>33</div>
-                <div className={`play_item-${cellCheckSkin[34]}`} onClick={() => {handleClick(34)}}>34</div>
-                <div className={`play_item-${cellCheckSkin[35]}`} onClick={() => {handleClick(35)}}>35</div>
-           
-                <div className={`play_item-${cellCheckSkin[36]}`} onClick={() => {handleClick(36)}}>36</div>
-                <div className={`play_item-${cellCheckSkin[37]}`} onClick={() => {handleClick(37)}}>37</div>
-                <div className={`play_item-${cellCheckSkin[38]}`} onClick={() => {handleClick(38)}}>38</div>
-                <div className={`play_item-${cellCheckSkin[39]}`} onClick={() => {handleClick(39)}}>39</div>
-                <div className={`play_item-${cellCheckSkin[40]}`} onClick={() => {handleClick(40)}}>40</div>
-                <div className={`play_item-${cellCheckSkin[41]}`} onClick={() => {handleClick(41)}}>41</div>
-                <div className={`play_item-${cellCheckSkin[42]}`} onClick={() => {handleClick(42)}}>42</div>
-            </div>
-        </div>
-    
-    </>
-  )
+        <Navbar/>
+        <Routes>
+          <Route exact path="/" element={<Body setRoom = {setRoom} getPlayer1or2 = {getPlayer1or2} setPlayer1or2 = {setPlayer1or2} socket = {socket} setMyTurn = {setMyTurn} getMyUserName = {getMyUserName} getOpponentUserName = {getOpponentUserName} setOpponentUserName = {setOpponentUserName}/>}></Route>
+          <Route exact path="/easy" element={<Easy/>}></Route>
+          <Route exact path="/medium" element={<Moderate/>}></Route>
+          <Route exact path="/hard" element={<Hard/>}></Route>
+          <Route exact path="/nameColor" element={<Name_color/>}></Route>
+          <Route exact path="/aboutUs" element={<AboutUs/>}></Route>
+          <Route exact path="/rules" element={<Rules_Regulations/>}></Route>
+          <Route exact path="/game" element={<Game_Play getRoom = {getRoom} socket = {socket} getPlayer1Coin = {getPlayer1Coin} getPlayer2Coin = {getPlayer2Coin} getPlayer1or2 = {getPlayer1or2} getMyTurn = {getMyTurn} setMyTurn = {setMyTurn}/>}></Route>
+        </Routes>
+      </Router>
+    </div>
+  );
 }
+
+export default App;

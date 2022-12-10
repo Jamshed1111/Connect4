@@ -41,23 +41,57 @@ io.on("connection", (socket) => {
         })
     })
 
-    socket.on("join-room", (data, acknowledgement) => {
+    socket.on("create-room", (data, acknowledgement) => {
         console.log(data);
         const room = io.of("/").adapter.rooms.get(data.room)
-        if(room === undefined || room.size < 2) {
+        if(room === undefined) {
             socket.join(data.room)
             acknowledgement({
                 status: "OK"
             })
         }else {
             acknowledgement({
+                status: "Room already created"
+            })
+        }
+        // console.log(data.room);
+        // socket.join(data.room);
+        const updatedRoom = io.of("/").adapter.rooms.get(data.room)
+        console.log(`Room id: ${data.room}, Size: ${updatedRoom.size}`);
+    })
+
+    socket.on("join-room", (data, acknowledgement) => {
+        console.log(data);
+        const room = io.of("/").adapter.rooms.get(data.room)
+        if(room === undefined) {
+            acknowledgement({
+                status: "Room not created"
+            })
+        }else if(room.size === 2){
+            acknowledgement({
                 status: "Room is full"
+            })
+        }
+        else{
+            socket.join(data.room)
+            socket.to(data.room).emit("joiner-data", data);
+            acknowledgement({
+                status: "OK"
             })
         }
         // console.log(data.room);
         // socket.join(data.room);
         const updatedRoom = io.of("/").adapter.rooms.get(data.room)
         console.log(`Room id: ${data.room} ,Size: ${updatedRoom.size}`);
+    })
+
+    socket.on("creator-data", (data, acknowledgement) => {
+        socket.to(data.room).emit("creator-data", data);
+        const updatedRoom = io.of("/").adapter.rooms.get(data.room)
+        console.log(`Room id: ${data.room} ,Size: ${updatedRoom.size}`);
+        acknowledgement({
+            status: "OK"
+        })
     })
 
     socket.on("leave-room", (data, acknowledgement) => {
