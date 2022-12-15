@@ -175,7 +175,7 @@ export default function Game_Play(props) {
                 winningCells = [];
             }
 
-            sendMove(move, winningCells);
+            sendMove(move);
         }
         else{
             alert("Can't play there\nColumn is full");
