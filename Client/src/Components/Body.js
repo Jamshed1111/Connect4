@@ -10,6 +10,7 @@ import { useEffect} from 'react';
 export default function Body(props) {
 
     const socket = props.socket;
+    const uniqueUserId = props.uniqueUserId;
     let amPlayer1or2 = 0;//Get from user if casual
     let createRoomId;
     let joinRoomId;
@@ -20,7 +21,7 @@ export default function Body(props) {
             let room = data.room;
             let userName = props.getMyUserName();
             let creatorPlayerNumber = props.getPlayer1or2();
-            socket.emit("creator-data", {room, userName, creatorPlayerNumber}, (acknowledgement) => {
+            socket.emit("creator-data", {room, userName, creatorPlayerNumber, uniqueUserId}, (acknowledgement) => {
                 
             });
             
@@ -72,7 +73,7 @@ export default function Body(props) {
         props.setMatchOver(false);
         let room = joinRoomId;
         let userName = props.getMyUserName();
-        socket.emit("join-room", {room, userName}, (acknowledgement) => {
+        socket.emit("join-room", {room, userName, uniqueUserId}, (acknowledgement) => {
             let ack = acknowledgement.status;
             if(ack === "Room not created"){
                 alert(ack);

@@ -6,6 +6,8 @@ const cors = require('cors');
 
 app.use(cors());
 
+const userToRoomMap = new Map();
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -19,12 +21,12 @@ io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
 
     socket.on("disconnecting", () => {
-    console.log(socket.rooms.id); // the Set contains at least the socket ID
+        console.log(socket.rooms.id); // the Set contains at least the socket ID
     });
 
     socket.on("disconnect", () => {
-    // socket.rooms.size === 0
-    console.log("Disconnect");
+        // socket.rooms.size === 0
+        console.log("Disconnect");
     });
 
     socket.on("send-move", (data, acknowledgement) => {
@@ -65,6 +67,10 @@ io.on("connection", (socket) => {
     })
 
     socket.on("join-room", (data, acknowledgement) => {
+        //data contains:
+        //1. room
+        //2. userName
+        //3. uniqueUserId
         console.log(data);
         const room = io.of("/").adapter.rooms.get(data.room)
         if(room === undefined) {
@@ -77,7 +83,8 @@ io.on("connection", (socket) => {
             })
         }
         else{
-            socket.join(data.room)
+            socket.join(data.room);
+            userToRoomMap.set(data.uniqueUserId, data.room);
             socket.to(data.room).emit("joiner-data", data);
             acknowledgement({
                 status: "OK"
@@ -91,6 +98,7 @@ io.on("connection", (socket) => {
 
     socket.on("creator-data", (data, acknowledgement) => {
         socket.to(data.room).emit("creator-data", data);
+        userToRoomMap.set(data.uniqueUserId, data.room);
         const updatedRoom = io.of("/").adapter.rooms.get(data.room)
         console.log(`Room id: ${data.room} ,Size: ${updatedRoom.size}`);
         acknowledgement({
@@ -114,6 +122,27 @@ io.on("connection", (socket) => {
         })
         // console.log(data.room);
         // socket.join(data.room);
+    })
+
+    socket.on("check-for-ongoing-match", (data, acknowledgement) => {
+
+        console.log(data);
+        
+        let uniqueUserId = data.uniqueUserId;
+
+        if(userToRoomMap.has(uniqueUserId)){
+            let room = userToRoomMap.get(uniqueUserId);
+            acknowledgement({
+                status: "Has ongoing Match",
+                room
+            })
+        }
+        else{
+            acknowledgement({
+                status: "No ongoing Match"
+            })
+        }
+        
     })
 })
 

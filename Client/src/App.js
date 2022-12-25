@@ -95,13 +95,25 @@ function App() {
   //   setCellCheck(data);
   // }
 
+  let uniqueUserId = prompt("Enter your Unique user Id", "Jamshed");
+
+  socket.emit("check-for-ongoing-match", {uniqueUserId}, (acknowledgement) => {
+    let ack = acknowledgement.status;
+    if(ack === "Has ongoing Match"){
+      alert(acknowledgement.room);
+    }
+    else if(ack === "No ongoing Match"){
+      alert(ack);
+    }
+  });
+
   return (
     <div>
       <Router>
 
         <Navbar/>
         <Routes>
-          <Route exact path="/" element={<Body setRoom = {setRoom} getPlayer1or2 = {getPlayer1or2} setPlayer1or2 = {setPlayer1or2} socket = {socket} setMyTurn = {setMyTurn} getMyUserName = {getMyUserName} getOpponentUserName = {getOpponentUserName} setOpponentUserName = {setOpponentUserName} setMatchOver = {setMatchOver}/>}></Route>
+          <Route exact path="/" element={<Body setRoom = {setRoom} getPlayer1or2 = {getPlayer1or2} setPlayer1or2 = {setPlayer1or2} socket = {socket} setMyTurn = {setMyTurn} getMyUserName = {getMyUserName} getOpponentUserName = {getOpponentUserName} setOpponentUserName = {setOpponentUserName} setMatchOver = {setMatchOver} uniqueUserId = {uniqueUserId}/>}></Route>
           <Route exact path="/easy" element={<Easy/>}></Route>
           <Route exact path="/medium" element={<Moderate/>}></Route>
           <Route exact path="/hard" element={<Hard/>}></Route>
