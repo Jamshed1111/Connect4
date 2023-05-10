@@ -21,14 +21,6 @@ module.exports = (sequelize,DataTypes) => {
         lastname:{
             type : DataTypes.STRING
         },
-        ratings:{
-            type: DataTypes.INTEGER,
-            defaultValue : 0
-        },
-        maxRatings:{
-            type: DataTypes.INTEGER,
-            defaultValue : 0
-        }
     })
 
     return user;

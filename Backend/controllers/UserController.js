@@ -23,7 +23,7 @@ const adduser = async (req,res)=>{
         firstname : req.body.firstname,
         lastname : req.body.lastname,
     }
-    // console.log(info);
+    console.log(info);
     const user = await Project.create(info);
     // res.status(200).send(user);
     jwt.sign({user},jwtKey,{expiresIn:"2h"},(err,token)=>{

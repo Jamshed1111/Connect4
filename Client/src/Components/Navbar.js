@@ -2,7 +2,7 @@
 
 import React, { Component,useState } from 'react'
 import PropTypes from 'prop-types'
-import{ Link, Navigate } from "react-router-dom";
+import{ Link, Navigate, useAsyncError } from "react-router-dom";
 // import { Json } from 'sequelize/types/utils';
 // const bcrypt = require('bcrypt');
 
@@ -14,12 +14,14 @@ import{ Link, Navigate } from "react-router-dom";
       const [name,setusername] = useState("");
       const [email,setemail] = useState("");
       const [password,setpassword] = useState("");
+      const [firstname,setfirstname] = useState("");
+      const [lastname,setlastname] = useState("");
 
         const collectData = async () =>{
             console.warn(name,email,password);
             const result = await fetch('http://localhost:3000/api/adduser',{
                 method:'post',
-                body: JSON.stringify({name,email,password}),
+                body: JSON.stringify({name,email,password,firstname,lastname}),
                 headers:{
                     'Content-Type': 'application/json'
                 }
@@ -154,9 +156,9 @@ import{ Link, Navigate } from "react-router-dom";
 
                     <div className="input-group my-3">
                         <span className="input-group-text">First and last name</span>
-                        <input type="text" aria-label="First name" className="form-control"/>
+                        <input type="text" value={firstname} onChange = {(e)=>setfirstname(e.target.value)} aria-label="First name" className="form-control"/>
                         {/* <!-- <input type="text" aria-label="middle name" className="form-control"> --> */}
-                        <input type="text" aria-label="Last name" className="form-control"/>
+                        <input type="text" value={lastname} onChange = {(e)=>setlastname(e.target.value)}  aria-label="Last name" className="form-control"/>
                     </div>
 
                     <div className="mb-3">

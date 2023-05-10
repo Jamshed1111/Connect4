@@ -2,6 +2,7 @@ const dbConfig = require('../config/dbConfig.js')
 
 const { Sequelize,DataTypes } = require('sequelize')
 
+//connecting database with sequelize orm--------------
 const sequelize = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -22,7 +23,25 @@ const sequelize = new Sequelize(
 // const sequelize = new Sequelize('college','root','dev123',{
 //     host : 'localhost',
 //     dialect : 'mysql'
-// });
+// }); 
+
+
+const db = {} // creating database object
+
+db.Sequelize = Sequelize //Sequelize class
+db.sequelize = sequelize //sequelize object
+
+
+//enter db.tablename
+
+db.project = require('./Usermodule.js')(sequelize,DataTypes)
+
+db.match = require('./matchModule.js')(sequelize,DataTypes)
+
+//ASSOCIATIONS HERE
+// db.project.hasOne(db.match);
+// db.match.belongsTo(db.project);
+  
 
 sequelize.authenticate().then(()=>{
     console.log("connected...")
@@ -31,14 +50,7 @@ sequelize.authenticate().then(()=>{
     console.log(err)
 })
 
-const db = {}
 
-db.Sequelize = Sequelize
-db.sequelize = sequelize
-
-//enter db.tablename
-
-db.project = require('./Usermodule.js')(sequelize,DataTypes)
 
 db.sequelize.sync({force:false}).then(()=>{
     console.log("sync done")
